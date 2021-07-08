@@ -1,0 +1,18 @@
+﻿using Books.Model.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Books.DataAccess.Services
+{
+    public interface ICoverTypeRepository
+    {
+        void AddCoverType(CoverType coverType);
+        CoverType GetCoverTypeById(int id);
+        IEnumerable<CoverType> GetAllCoverTypes();
+        void UpdateCoverType(CoverType coverType);
+        void DeleteCoverType(CoverType coverType);
+    }
+}

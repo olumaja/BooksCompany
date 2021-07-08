@@ -1,0 +1,18 @@
+﻿using Books.Model.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Books.DataAccess.Services
+{
+    public interface ICategoryRepository
+    {
+        bool AddCategory(Category model);
+        Category GetCategoryById(int id);
+        IEnumerable<Category> GetAllCategories();
+        bool UpdateCategory(Category model);
+        bool DeleteCategory(Category model);
+    }
+}
