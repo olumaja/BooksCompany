@@ -1,4 +1,5 @@
-﻿using Books.Model.Models;
+﻿using Books.DataAccess.FluentConfiguration;
+using Books.Model.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -13,11 +14,16 @@ namespace Books.DataAccess.Data
         {
         }
 
-        //protected override void OnModelCreating(ModelBuilder builder)
-        //{
-        //    builder.Entity<Category>().HasKey(c => c.CategoryId);
-        //    builder.Entity<Category>().Property(c => c.Name).HasMaxLength(50).IsRequired();
-        //}
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+
+            base.OnModelCreating(builder);
+
+            //Application User
+            builder.ApplyConfiguration(new ApplicationUserConfig());
+            //Company
+            builder.ApplyConfiguration(new CompanyConfig());
+        }
 
         public DbSet<Category> Categories { get; set; }
         public DbSet<CoverType> CoverTypes { get; set; }

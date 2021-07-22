@@ -73,6 +73,9 @@ namespace Books.Areas.Admin.Controllers
         public IActionResult Update(int id)
         {
             var coverObj = _coverTypeRepository.GetCoverTypeById(id);
+
+            if(coverObj == null) { return NotFound(); }
+
             return View(coverObj);
         }
 

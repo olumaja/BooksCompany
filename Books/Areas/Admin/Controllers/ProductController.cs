@@ -152,7 +152,6 @@ namespace Books.Areas.Admin.Controllers
                     Value = t.CoverTypeId.ToString()
                 })
             };
-            //productVM.Product = _product.GetProductById(id);
 
             if(productVM.Product == null) { return NotFound(); }
 

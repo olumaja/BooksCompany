@@ -11,20 +11,12 @@ namespace Books.Model.Models
 {
     public class ApplicationUser : IdentityUser
     {
-        [Required]
-        [MaxLength(50, ErrorMessage ="Maximum character of 50")]
         public string Name { get; set; }
-        [ForeignKey("Company")]
         public int? CompanyId { get; set; }
-        [Required]
-        public string Address { get; set; }
-        [Required]
+        public string StreetAddress { get; set; }
         public string City { get; set; }
-        [Required]
         public string State { get; set; }
-        [MaxLength(15, ErrorMessage ="Maximum character of 15")]
         public string PostalCode { get; set; }
-        [NotMapped]
         public string Role { get; set; }
 
         public Company Company { get; set; }

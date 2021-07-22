@@ -9,22 +9,17 @@ namespace Books.Model.Models
 {
     public class Company
     {
-        [Key]
         public int CompanyId { get; set; }
-        [Required]
-        [MaxLength(100, ErrorMessage ="Maximum of 100 characters")]
         public string Name { get; set; }
-        [Required]
+        [Display(Name = "Street Address")]
         public string StreetAddress { get; set; }
-        [Required]
         public string City { get; set; }
-        [Required]
         public string State { get; set; }
+        [Display(Name = "Postal Code")]
         public string PostalCode { get; set; }
-        [Required]
-        [MaxLength(11, ErrorMessage ="Maximum of 11 characters")]
+        [Display(Name = "Phone Number")]
         public string PhoneNumber { get; set; }
-        [Required]
+        [Display(Name = "Authorized")]
         public bool IsAuthorizedCompany { get; set; }
 
         public ICollection<ApplicationUser> ApplicationUsers { get; set; }
