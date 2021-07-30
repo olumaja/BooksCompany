@@ -19,7 +19,7 @@ namespace Books.DataAccess.Data
 
             base.OnModelCreating(builder);
 
-            //Application User
+            //Application User fluent api
             builder.ApplyConfiguration(new ApplicationUserConfig());
             //Company
             builder.ApplyConfiguration(new CompanyConfig());
