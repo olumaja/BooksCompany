@@ -1,6 +1,8 @@
 ﻿using Books.DataAccess.Services;
 using Books.Model.Models;
 using Books.Model.ViewModels;
+using Books.Utilities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -13,6 +15,7 @@ using System.Threading.Tasks;
 namespace Books.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = HelpersClass.role_Admin)]
     public class ProductController : Controller
     {
         private readonly IProductRepository _product;

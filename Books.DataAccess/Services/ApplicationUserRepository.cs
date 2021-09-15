@@ -1,5 +1,6 @@
 ﻿using Books.DataAccess.Data;
 using Books.Model.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,7 +32,7 @@ namespace Books.DataAccess.Services
 
         public IEnumerable<ApplicationUser> GetAllUsers()
         {
-            return _context.ApplicationUsers.ToList();
+            return _context.ApplicationUsers.Include(a => a.Company).ToList();
         }
 
         public ApplicationUser GetUserById(string id)

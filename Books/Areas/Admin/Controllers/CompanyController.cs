@@ -1,5 +1,7 @@
 ﻿using Books.DataAccess.Services;
 using Books.Model.Models;
+using Books.Utilities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -9,6 +11,7 @@ using System.Threading.Tasks;
 namespace Books.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = HelpersClass.role_Admin + "," + HelpersClass.role_Emp)]
     public class CompanyController : Controller
     {
         private readonly ICompanyRepository _companyRepository;

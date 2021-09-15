@@ -42,10 +42,30 @@ namespace Books
             services.AddScoped<ICoverTypeRepository, CoverTypeRepository>();
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<ICompanyRepository, CompanyRepository>();
-            
+            services.AddScoped<IApplicationUserRepository, ApplicationUserRepository>();
+            services.AddScoped<IUserRolesRepository, UserRolesRepository>();
+            services.AddScoped<IRolesRepository, RolesRepository>();
+
             services.AddSingleton<IEmailSender, EmailSender>();
+            services.Configure<EmailOptions>(Configuration);
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
             services.AddRazorPages();
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.LoginPath = $"/Identity/Account/Login";
+                options.LogoutPath = $"/Identity/Account/Logout";
+                options.AccessDeniedPath = $"/Identity/Account/AccessDenied";
+            });
+            services.AddAuthentication().AddFacebook(facebookOptions => {
+                facebookOptions.AppId = "979473595953162";
+                facebookOptions.AppSecret = "99d00bd663a778ae1d3aab3173caf657";
+                //facebookOptions.AccessDeniedPath = "//AccessDeniedPathInfo";
+            });
+            services.AddAuthentication().AddGoogle(googleOption =>
+            {
+                googleOption.ClientId = "463028221946-6bi73imoivke1l9c8j8ph19gtdd3qp67.apps.googleusercontent.com";
+                googleOption.ClientSecret = "fH0aJKQRC-bZ9LDwtgZh_dXF";
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
