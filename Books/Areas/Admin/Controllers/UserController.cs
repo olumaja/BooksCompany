@@ -47,13 +47,13 @@ namespace Books.Areas.Admin.Controllers
 
                     if(user.Company == null)
                     {
-                        user.Company = new Company {Name = "" };
+                        user.Company = new Company {Name = "Decagon" };
                     }
 
                 }
 
-            return Json(new { data = users });
-        }
+                return Json(new { data = users });
+            }
 
         [HttpPost]
         public IActionResult LockUnlock([FromBody] string id)

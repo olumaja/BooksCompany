@@ -48,6 +48,8 @@ namespace Books
 
             services.AddSingleton<IEmailSender, EmailSender>();
             services.Configure<EmailOptions>(Configuration);
+            services.AddTransient<IMailService, MailService>();
+            services.Configure<MailSettings>(Configuration.GetSection("EmailConfigurations"));
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
             services.AddRazorPages();
             services.ConfigureApplicationCookie(options =>
