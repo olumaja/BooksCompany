@@ -42,7 +42,6 @@ namespace Books.DataAccess.Services
 
         public void UpdateProduct(Product product)
         {
-            //_db.Products.Update(product);
             var objFromDb = _db.Products.FirstOrDefault(s => s.ProductId == product.ProductId);
             if (objFromDb != null)
             {

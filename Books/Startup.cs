@@ -28,7 +28,7 @@ namespace Books
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
+        //This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<ApplicationDbContext>(options =>
@@ -45,6 +45,7 @@ namespace Books
             services.AddScoped<IApplicationUserRepository, ApplicationUserRepository>();
             services.AddScoped<IUserRolesRepository, UserRolesRepository>();
             services.AddScoped<IRolesRepository, RolesRepository>();
+            services.AddScoped<IShoppingCartRepository, ShoppingCartRepository>();
 
             services.AddSingleton<IEmailSender, EmailSender>();
             services.Configure<EmailOptions>(Configuration);
