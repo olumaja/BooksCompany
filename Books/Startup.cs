@@ -69,6 +69,12 @@ namespace Books
                 googleOption.ClientId = "463028221946-6bi73imoivke1l9c8j8ph19gtdd3qp67.apps.googleusercontent.com";
                 googleOption.ClientSecret = "fH0aJKQRC-bZ9LDwtgZh_dXF";
             });
+            services.AddSession(option =>
+            {
+                option.IdleTimeout = TimeSpan.FromMinutes(30);
+                option.Cookie.HttpOnly = true;
+                option.Cookie.IsEssential = true;
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -89,6 +95,7 @@ namespace Books
             app.UseStaticFiles();
 
             app.UseRouting();
+            app.UseSession();
 
             app.UseAuthentication();
             app.UseAuthorization();

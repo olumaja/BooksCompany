@@ -2,7 +2,9 @@
 using Books.Model;
 using Books.Model.Models;
 using Books.Model.ViewModels;
+using Books.Utilities;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -30,16 +32,30 @@ namespace Books.Areas.Customer.Controllers
             _shoppingCart = shoppingCart;
         }
 
+        [HttpGet]
         public IActionResult Index()
         {
             IEnumerable<Product> products = _productRepository.GetAllProducts().ToList();
+            //Check if user login
+            ClaimsIdentity claimsIdentity = (ClaimsIdentity)User.Identity;
+            var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
+
+            if(claim != null)
+            {
+                //Get the total number of items in user shopping cart
+                var count = _shoppingCart.GetAllShoppingCarts().Where(s => s.ApplicationUserId == claim.Value).ToList().Count;
+                //Can also use in-built session
+                HttpContext.Session.SetInt32(HelpersClass.sessionShoppingCart, count);
+            }
+
             return View(products);
         }
 
+        [HttpGet]
         public IActionResult Details(int id)
         {
             var product = _productRepository.GetAllProducts().FirstOrDefault(p => p.ProductId == id);
-            ShippingCart cart = new ShippingCart
+            ShippingCart cart = new()
             {
                 Product = product,
                 ProductId = product.ProductId
@@ -72,6 +88,11 @@ namespace Books.Areas.Customer.Controllers
                     _shoppingCart.UpdateShoppingCart(cartFromDb);
                 }
 
+                //Get the total number of items in user shopping cart
+                var count = _shoppingCart.GetAllShoppingCarts().Where(s => s.ApplicationUserId == cart.ApplicationUserId).ToList().Count;
+                //Can also use in-built session
+                //HttpContext.Session.SetInt32(HelpersClass.sessionShoppingCart, count);
+                HttpContext.Session.SetObject(HelpersClass.sessionShoppingCart, cartFromDb);
                 return RedirectToAction(nameof(Index));
             }
             else
