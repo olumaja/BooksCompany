@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using NLog.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,7 +21,13 @@ namespace Books
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
-                    webBuilder.UseStartup<Startup>();
+                    webBuilder.ConfigureLogging((hostContext, logging) => {
+                        logging.AddConfiguration(hostContext.Configuration.GetSection("logging"));
+                        logging.AddConsole();  //Important for development
+                        logging.AddDebug();  //Important for hosting enviroment
+                        logging.AddEventSourceLogger();
+                        logging.AddNLog();   //Important to log file
+                    }).UseStartup<Startup>();
                 });
     }
 }

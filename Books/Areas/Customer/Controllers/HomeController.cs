@@ -4,6 +4,7 @@ using Books.Model.Models;
 using Books.Model.ViewModels;
 using Books.Utilities;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -113,9 +114,12 @@ namespace Books.Areas.Customer.Controllers
             return View();
         }
 
+        [HttpGet]
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
+            var exceptionDetails = HttpContext.Features.Get<IExceptionHandlerPathFeature>();
+            _logger.LogError($"The path {exceptionDetails.Path} threw an exception {exceptionDetails.Error}");
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
     }
