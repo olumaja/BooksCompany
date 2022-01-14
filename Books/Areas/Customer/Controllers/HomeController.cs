@@ -115,6 +115,23 @@ namespace Books.Areas.Customer.Controllers
         }
 
         [HttpGet]
+        [Route("Customer/Home/Error/{statusCode}")]
+        public IActionResult HttpStatusCodeHandler(int statusCode)
+        {
+            var errorDetails = HttpContext.Features.Get<IStatusCodeReExecuteFeature>();
+
+            switch (statusCode)
+            {
+                case 404:
+                    ViewBag.ErrorMessage = "Sorry, the resource you request cannot be found";
+                    _logger.LogError($"404 error occured. The path is {errorDetails.OriginalPath} and query string is {errorDetails.OriginalQueryString}");
+                    break;
+            }
+
+            return View();
+        }
+
+        [HttpGet]
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
