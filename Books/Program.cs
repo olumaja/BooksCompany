@@ -22,7 +22,7 @@ namespace Books
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.ConfigureLogging((hostContext, logging) => {
-                        logging.AddConfiguration(hostContext.Configuration.GetSection("logging"));
+                        logging.AddConfiguration(hostContext.Configuration.GetSection("LogLevel"));
                         logging.AddConsole();  //Important for development
                         logging.AddDebug();  //Important for hosting enviroment
                         logging.AddEventSourceLogger();

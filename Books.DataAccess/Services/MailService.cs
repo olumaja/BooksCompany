@@ -54,6 +54,7 @@ namespace Books.DataAccess.Services
             smtp.Authenticate(_mailSettings.FromMail, _mailSettings.Password);
             await smtp.SendAsync(email);
             smtp.Disconnect(true);
+            smtp.Dispose();
         }
     }
 }
